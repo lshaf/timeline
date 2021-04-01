@@ -13,7 +13,12 @@
     100% {bottom: 5px;right: 5px;}
 }
 
-
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 body {
     padding: 0;
     margin: 0;
@@ -24,9 +29,48 @@ body {
     margin: auto;
     padding: 15px;
 }
-
 .text-center {
     text-align: center;
+}
+.pull-right {
+    float: right;
+}
+.btn {
+    border: 1px solid black;
+    line-height: 18px;
+    cursor: pointer;
+    outline: 0px;
+}
+.btn:hover {
+    box-shadow: 0 0 3px #051fff;
+}
+.btn:active {
+    box-shadow: inset 0 0 3px 1px #0000007b;
+}
+.btn.btn-big {
+    padding: 6px 15px;
+}
+.btn.btn-danger {
+    border-color: red;
+    background-color: #e84242;
+    color: white;
+}
+.btn.btn-success {
+    border-color: #28c528;
+    background-color: #45d045;
+}
+.btn.btn-info {
+    border-color: #48d2d0;
+    background-color: #5bf3f5;
+}
+.btn.btn-main {
+    border-color: #2261da;
+    background-color: #3979f3;
+    color: white;
+}
+.btn.btn-warning {
+    background-color: #fdbe49;
+    border-color: orange;
 }
 
 #app .loading {
@@ -99,4 +143,51 @@ body {
 #app .list .navigator button {
     flex-grow: 2;
     display: inline-block;
+}
+
+
+#app .form .form-control {
+    display: block;
+    width: 100%;
+    padding: 7px 8px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
+#app .form .form-control[disabled] {
+    background-color: #d3e7ea;
+}
+#app .form .block-activity {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+#app .form .block-activity:last-child {
+    margin-bottom: 15px;
+}
+#app .form .block-activity > .main-set {
+    flex-grow: 10;
+    margin-right: 10px;
+}
+#app .form .block-activity > .main-set textarea {
+    height: 100%;
+    resize: none;
+}
+#app .form .block-activity > .input-set {
+    margin-right: 10px;
+    width: 150px;
+}
+#app .form .block-activity > .input-set > .form-control:last-child {
+    margin-bottom: 0px;
+}
+#app .form .block-activity > .action-set {
+    width: 150px;
+}
+#app .form .block-activity > .action-set button {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+#app .form .block-activity > .action-set button:last-child {
+    margin-bottom: 0px;
 }
