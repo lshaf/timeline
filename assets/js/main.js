@@ -4,6 +4,8 @@ const app = new Vue({
         return {
             route: "list",
             isLoading: true,
+            setting: {},
+            activeTimeline: {},
         };
     }
 });

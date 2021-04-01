@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <p-list v-if="route == 'list'"></p-list>
-        <p-form v-if="route == 'form'"></p-form>
+        <p-form v-if="route == 'form'" :timeline="activeTimeline"></p-form>
         <div class="loading" v-if="isLoading">
             <div class="content">
                 <span class="loader-anim"></span>

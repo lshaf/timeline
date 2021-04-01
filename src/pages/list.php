@@ -2,7 +2,7 @@
     <div class="list">
         <div class="navigator">
             <button type="button" @click="openForm()">Add Project</button>
-            <button type="button" @click="openForm()">Setting</button>
+            <button type="button" @click="openSetting()">Setting</button>
             <input type="text" v-model.trim="search" placeholder="Search name">
             <button type="button" @click="renderPage(page-1)">Prev</button>
             <button type="button" @click="renderPage(page+1)">Next</button>

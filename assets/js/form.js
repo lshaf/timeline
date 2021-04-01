@@ -3,16 +3,26 @@ Vue.component('p-form', {
     components: {
         datepicker: vuejsDatepicker
     },
-    props: ['setting'],
+    props: {
+        timeline: Object
+    },
     data() {
+        let self = this;
         let defaultSetting = {
             offDay: [6, 0],
             holiday: ["2021-04-02"],
         };
+
         let setup = Object.assign(defaultSetting, this.setting);
-        let self = this;
 
         return {
+            setting: this.$parent.setting,
+            defaultSchedule: {
+                description: "",
+                startDate: this.dateFormatter(new Date()),
+                manDays: 1,
+                finishDate: ""
+            },
             disabledDates: {
                 days: setup.offDay,
                 customPredictor (date) {
@@ -20,25 +30,17 @@ Vue.component('p-form', {
                     return setup.holiday.includes(dateNow);
                 }
             },
-            timeline: {
-                id: "xxx",
-                name: "Judul",
-                schedules: [
-                    {
-                        description: "Coba1",
-                        startDate: "2021-01-01",
-                        manDays: 4,
-                        finishDate: ""
-                    },
-                    {
-                        description: "Coba 2",
-                        startDate: "2021-01-05",
-                        manDays: 4,
-                        finishDate: ""
-                    }
-                ]
-            }
         };
+    },
+    created() {
+        console.log(this, this.timeline);
+        let defaultTimeline = {
+            id: "xxx",
+            name: "",
+            schedules: [this.defaultSchedule]
+        };
+        this.timeline = Object.assign(defaultTimeline, this.timeline);
+        console.log('after', this.timeline);
     },
     methods: {
         dateFormatter(tmpDate) {
@@ -60,19 +62,17 @@ Vue.component('p-form', {
             console.log('adjust');
         },
         addSchedule() {
-            let dateNow = new Date();
-            this.timeline.schedules.push({
-                description: "",
-                startDate: this.dateFormatter(dateNow),
-                manDays: 1,
-                finishDate: ""
-            })
+            this.timeline.schedules.push(this.defaultSchedule);
         },
         deleteSchedule(scheduleKey) {
-            console.log(`deleted`, scheduleKey);
+            this.timeline.schedules.splice(scheduleKey, 1);
         },
         finishSchedule(scheduleKey, isFinish) {
-            console.log('finished', scheduleKey, isFinish)
+            let finish = (isFinish == 1) ? this.dateFormatter(new Date()) : "";
+            this.timeline.schedules[scheduleKey].finishDate = finish;
+        },
+        isFinish(scheduleKey) {
+            return this.timeline.schedules[scheduleKey].finishDate != "";
         },
         back() {
             this.$parent.route = 'list';

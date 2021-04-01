@@ -153,8 +153,24 @@ body {
     margin-bottom: 5px;
     border: 1px solid black;
 }
+#app .form .finish-label {
+    display: inline-block;
+    line-height: 22px;
+    background-color: #45d045;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 3px;
+    position: relative;
+}
+#app .form .finish-label:before {
+    position: absolute;
+    content: "FD";
+    left: 8px;
+}
 #app .form .form-control[disabled] {
-    background-color: #d3e7ea;
+    background-color: #e2e2e2;
 }
 #app .form .block-activity {
     display: flex;
@@ -188,6 +204,6 @@ body {
     width: 100%;
     margin-bottom: 5px;
 }
-#app .form .block-activity > .action-set button:last-child {
+#app .form .block-activity > .action-set > button:last-child {
     margin-bottom: 0px;
 }

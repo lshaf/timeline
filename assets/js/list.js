@@ -16,6 +16,23 @@ Vue.component('p-list', {
             this.page = page;
         },
         openForm(id = null) {
+            if (id === null) this.$parent.activeTimeline = {};
+            this.$parent.route = 'form';
+        },
+        openSetting() {
+            this.$parent.activeTimeline = {
+                id: "yyy",
+                name: "Setting",
+                schedules: [
+                    {
+                        description: "From setting",
+                        manDays: 3,
+                        startDate: "2021-04-05",
+                        finishDate: ""
+                    }
+                ]
+            };
+
             this.$parent.route = 'form';
         }
     }
