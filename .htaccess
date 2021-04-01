@@ -1,0 +1,5 @@
+Options -Indexes +FollowSymLinks +MultiViews
+
+RedirectMatch 404 env.json(.+)?$
+RedirectMatch 404 .gitignore$
+RedirectMatch 404 /src/(.+)$

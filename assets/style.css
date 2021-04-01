@@ -1,0 +1,102 @@
+@keyframes dot-one {
+    0% {top: 5px;left: 5px;}
+    40% {top: 5px;left:185px;}
+    50% {top: 35px;left:185px;}
+    90% {top: 35px;left: 5px;}
+    100% {top: 5px;left: 5px;}
+}
+@keyframes dot-two {
+    0% {bottom: 5px;right: 5px;}
+    40% {bottom: 5px;right:185px;}
+    50% {bottom: 35px;right:185px;}
+    90% {bottom: 35px;right: 5px;}
+    100% {bottom: 5px;right: 5px;}
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+#app {
+    max-width: 1000px;
+    margin: auto;
+    padding: 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#app .loading {
+    position: fixed;
+    left:0;
+    top: 0;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+#app .loading .content {
+    text-align: center;
+    background-color: white;
+    line-height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    position: relative;
+}
+#app .loading .content:before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    animation: dot-one 5s infinite;
+}
+#app .loading .content:after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #0400ff;
+    border-radius: 50%;
+    bottom: 5px;
+    right: 5px;
+    animation: dot-two 5s infinite;
+}
+
+#app .list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#app .list table tr td,
+#app .list table tr th {
+    border: 1px solid #cacaca;
+    padding: 7px 12px;
+}
+#app .list .navigator {
+    display: flex;
+    margin-bottom: 15px;
+}
+#app .list .navigator > * {
+    line-height: 20px;
+    margin-right: 10px;
+}
+#app .list .navigator > *:last-child {
+    margin-right: 0;
+}
+#app .list .navigator input {
+    flex-grow: 8;
+    padding: 0 10px;
+}
+#app .list .navigator button {
+    flex-grow: 2;
+    display: inline-block;
+}
