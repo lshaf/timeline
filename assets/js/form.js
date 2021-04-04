@@ -6,25 +6,39 @@ Vue.component('p-form', {
     props: {
         timeline: Object
     },
-    data() {
+    created() {
         let self = this;
+        
         let defaultSetting = {
             offDay: [6, 0],
             holiday: ["2021-04-02", "2021-04-07", "2021-04-08", "2021-04-09"],
         };
 
-        let setup = Object.assign(defaultSetting, this.$parent.setting);
-
+        this.setting = Object.assign(defaultSetting, this.$parent.setting);
+        this.disabledDates =  {
+            days: this.setting.offDay,
+            customPredictor (date) {
+                let dateNow = self.dateFormatter(date);
+                return self.setting.holiday.includes(dateNow);
+            }
+        };
+    },
+    mounted() {
+        let p = this.dateFormatter(new Date()).replaceAll("-", "");
+        let r = Math.ceil(Math.random() * Math.pow(10, 12));
+        this.timeline = Object.assign({
+            id: p + String(r).padStart(12, "0"),
+            name: "",
+            schedules: [
+                Object.assign({}, this.defaultSchedule)
+            ]
+        }, this.timeline);
+    },
+    data() {
         return {
-            setting: setup,
+            setting: {},
             activeKey: null,
-            disabledDates: {
-                days: setup.offDay,
-                customPredictor (date) {
-                    let dateNow = self.dateFormatter(date);
-                    return setup.holiday.includes(dateNow);
-                }
-            },
+            disabledDates: {},
         };
     },
     computed: {
@@ -59,20 +73,6 @@ Vue.component('p-form', {
                 finishDate: ""
             };
         }
-    },
-    created() {
-        let p = this.dateFormatter(new Date()).replace("-", "");
-        let r = Math.ceil(Math.random() * Math.pow(10, 12));
-
-        let defaultTimeline = {
-            id: p + String(r).padStart(12, "0"),
-            name: "",
-            schedules: [
-                Object.assign({}, this.defaultSchedule)
-            ]
-        };
-
-        this.timeline = Object.assign(defaultTimeline, this.timeline);
     },
     methods: {
         dateFormatter(tmpDate) {
@@ -133,8 +133,13 @@ Vue.component('p-form', {
         back() {
             this.$parent.route = 'list';
         },
-        save() {
-            console.log('saved', this.timeline.schedules);
+        async save() {
+            let resp = await Request("save/timeline", this.timeline);
+            if (resp.success) {
+                alert(resp.message)
+            } else {
+                alert('Something wrong! Please contact developer');
+            }
         }
     }
 })

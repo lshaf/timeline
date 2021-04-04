@@ -7,7 +7,10 @@ Vue.component('p-list', {
             page: 1
         }
     },
-    mounted() {
+    async mounted() {
+        this.$parent.isLoading = true;
+        let list = await Request("get/timeline/list");
+        this.timelines = list.data;
         this.$parent.isLoading = false;
     },
     methods: {
@@ -15,9 +18,17 @@ Vue.component('p-list', {
             if (page < 1) page = 1;
             this.page = page;
         },
-        openForm(id = null) {
+        async openForm(id = null) {
             if (id === null) this.$parent.activeTimeline = {};
+            this.$parent.isLoading = true;
+            
+            if (id !== null) {
+                let detail = await Request("get/timeline", {id: id})
+                this.$parent.activeTimeline = detail.data;
+            }
+
             this.$parent.route = 'form';
+            this.$parent.isLoading = false;
         },
         openSetting() {
             this.$parent.activeTimeline = {
