@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tl_list = $db_path . "/list.json";
     if (!is_file($tl_list)) {
         touch($tl_list);
-        file_put_contents($tl_list, '[]');
+        file_put_contents($tl_list, '{}');
     }
 
     $setting_file = $db_path . "/setting.json";
@@ -73,23 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fn = $db_path . "/{$dt['id']}.json";
         if (!is_file($fn)) touch($fn);
 
-        $isUpdate = false;
         $cacheList = json_decode(file_get_contents($tl_list), true);
-        foreach ($cacheList as $key => $tll) {
-            if ($tll['id'] === $dt['id']) {
-                $isUpdate = true;
-                $cacheList[$key]['name'] = $dt['name'];
-                break;
-            }
-        }
+        $cacheList[$dt['id']] = $dt['name'];
 
-        if (!$isUpdate) {
-            $cacheList[] = [
-                'id' => $dt['id'],
-                'name' => $dt['name'],
-            ];
-        }
-
+        log_it("TIMELINE", "Updated timeline {$dt['id']}");
         file_put_contents($fn, json_encode($dt));
         file_put_contents($tl_list, json_encode($cacheList));
         $result = [
@@ -107,6 +94,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'data' => json_decode(file_get_contents($fn), true)
             ];
         }
+    } else if ($path == 'delete/timeline') {
+        $fn = $db_path . "/{$dt['id']}.json";
+        if (!is_file($fn)) {
+            $result['message'] = "ID is not valid.";
+        } else {
+            $cacheList = json_decode(file_get_contents($tl_list), true);
+            unset($cacheList[$dt['id']]);
+            unlink($fn);
+
+            file_put_contents($tl_list, json_encode($cacheList));
+            $result = [
+                'success' => true,
+                'message' => 'success',
+                'data' => []
+            ];
+        }
     } else if ($path == 'get/timeline/list') {
         $result = [
             'success' => true,
@@ -114,9 +117,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'data' => json_decode(file_get_contents($tl_list), true)
         ];
     } else if ($path == 'get/setting') {
-        //
+        $data = json_decode(file_get_contents($setting_file), true);
+        $data['holiday'] = array_filter($data['holiday'], function($x) {
+            $now = date("Y");
+            $current = date("Y", strtotime($x));
+            return ($current >= $now - 1) and ($current <= $now + 1);
+        });
+        $result = [
+            'success' => true,
+            'message' => 'success',
+            'data' => $data
+        ];
     } else if ($path == 'save/setting') {
-        //
+        $finalResult = [
+            'offDay' => [6,0],
+            'holiday' => $dt['holiday'] ?? []
+        ];
+
+        log_it("SETTING", "Updated setting");
+        file_put_contents($setting_file, json_encode($finalResult));
+        $result = [
+            'success' => true,
+            'message' => 'success',
+            'data' => $finalResult
+        ];
     }
 
     echo json_encode($result);

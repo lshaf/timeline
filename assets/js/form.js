@@ -8,27 +8,21 @@ Vue.component('p-form', {
     },
     created() {
         let self = this;
-        
-        let defaultSetting = {
-            offDay: [6, 0],
-            holiday: ["2021-04-02", "2021-04-07", "2021-04-08", "2021-04-09"],
-        };
-
-        this.setting = Object.assign(defaultSetting, this.$parent.setting);
-        this.disabledDates =  {
+        this.setting = this.$parent.setting;
+        this.disabledDates = {
             days: this.setting.offDay,
             customPredictor (date) {
                 let dateNow = self.dateFormatter(date);
                 return self.setting.holiday.includes(dateNow);
             }
         };
-    },
-    mounted() {
+
         let p = this.dateFormatter(new Date()).replaceAll("-", "");
         let r = Math.ceil(Math.random() * Math.pow(10, 12));
         this.timeline = Object.assign({
             id: p + String(r).padStart(12, "0"),
             name: "",
+            created: (new Date()).getTime(),
             schedules: [
                 Object.assign({}, this.defaultSchedule)
             ]
@@ -91,14 +85,13 @@ Vue.component('p-form', {
         
             while (manDays > 0) {
                 endDate.setDate(endDate.getDate() + 1);
-                manDays--;
         
                 fmtEd = this.dateFormatter(endDate);
                 if (
-                    this.setting.holiday.includes(fmtEd) 
-                    || this.setting.offDay.includes(endDate.getDay())
+                    !this.setting.holiday.includes(fmtEd) 
+                    && !this.setting.offDay.includes(endDate.getDay())
                 ) {
-                    manDays++;
+                    manDays--;
                 }
             }
         
@@ -134,12 +127,17 @@ Vue.component('p-form', {
             this.$parent.route = 'list';
         },
         async save() {
-            let resp = await Request("save/timeline", this.timeline);
+            let dataTimeline = this.timeline;
+            this.$parent.isLoading = true;
+            let resp = await Request("save/timeline", dataTimeline);
             if (resp.success) {
                 alert(resp.message)
             } else {
                 alert('Something wrong! Please contact developer');
             }
+
+            this.$parent.isLoading = false;
+            this.$parent.activeTimeline = dataTimeline;
         }
     }
 })

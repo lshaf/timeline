@@ -207,3 +207,44 @@ body {
 #app .form .block-activity > .action-set > button:last-child {
     margin-bottom: 0px;
 }
+
+.form .input-group {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+.form .input-group > * {
+    flex-grow: 2;
+}
+.form .input-group > .group-addon {
+    flex-grow: 1;
+}
+.form .input-group .group-addon .btn {
+    margin-left: -1px;
+    padding: 4px 15px;
+    line-height: 21px;
+}
+
+.form .date-list {
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.form .date-list .holiday-block {
+    display: inline-block;
+    border: 1px solid black;
+    position: relative;
+    margin-right: 30px;
+}
+.form .date-list .holiday-block .label {
+    display: inline-block;
+    padding: 4px 20px;
+    border-radius: 3px;
+}
+.form .date-list .holiday-block .btn {
+    margin-top: -2px;
+    font-size: 16px;
+    line-height: 22px;
+    width: 24px;
+    position: absolute;
+    top: 1px;
+}
