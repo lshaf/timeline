@@ -35,6 +35,10 @@ body {
 .pull-right {
     float: right;
 }
+.pre-box {
+    word-wrap: break-word;
+    white-space: pre-line;
+}
 .btn {
     border: 1px solid black;
     line-height: 18px;
@@ -124,6 +128,7 @@ body {
 #app .list table tr th {
     border: 1px solid #cacaca;
     padding: 7px 12px;
+    vertical-align: top;
 }
 #app .list .navigator {
     display: flex;
