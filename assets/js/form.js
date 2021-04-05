@@ -109,8 +109,9 @@ Vue.component('p-form', {
                 currentED = this.calculateEnd(lp);
             }
         },
-        addSchedule() {
-            this.timeline.schedules.push(Object.assign({}, this.defaultSchedule));
+        addSchedule(key) {
+            let newTimeline = Object.assign({}, this.defaultSchedule);
+            this.timeline.schedules.splice(key + 1, 0, newTimeline);
         },
         deleteSchedule(scheduleKey) {
             this.timeline.schedules.splice(scheduleKey, 1);

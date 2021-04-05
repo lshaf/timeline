@@ -32,8 +32,8 @@
           </div>
           <button type="button" @click="adjustDate(s_key)" class="btn btn-info"
             >Adjust Date</button>
-          <button type="button" @click="addSchedule()" class="btn btn-main"
-            v-if="(s_key + 1) == timeline.schedules.length">New Schedule</button>
+          <button type="button" @click="addSchedule(s_key)" class="btn btn-main"
+            >New Schedule</button>
         </div>
       </div>
     </div>
