@@ -234,6 +234,7 @@ body {
     border: 1px solid black;
     position: relative;
     margin-right: 30px;
+    margin-bottom: 10px;
 }
 .form .date-list .holiday-block .label {
     display: inline-block;
