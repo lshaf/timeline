@@ -20,6 +20,8 @@
           <td class="text-center">
             <button type="button" class="btn btn-success" 
               @click="openForm(timeline_id)">Audit</button>
+            <button type="button" class="btn btn-info" 
+              @click="openView(timeline_id)">View</button>
             <button type="button" class="btn btn-danger" 
               @click="deleteTimeline(timeline_id)">Delete</button>
           </td>

@@ -117,7 +117,6 @@ Vue.component('p-form', {
             this.timeline.schedules.splice(scheduleKey, 1);
         },
         finishSchedule(scheduleKey, isFinish) {
-            console.log(scheduleKey);
             let finish = (isFinish == 1) ? this.dateFormatter(new Date()) : "";
             this.timeline.schedules[scheduleKey].finishDate = finish;
         },

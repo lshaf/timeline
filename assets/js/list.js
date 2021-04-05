@@ -42,6 +42,19 @@ Vue.component('p-list', {
             this.$parent.route = 'form';
             this.$parent.isLoading = false;
         },
+        async openView(id) {
+            this.$parent.isLoading = true;
+            
+            let detail = await Request("get/timeline", {id: id})
+            if (detail.success) {
+                this.$parent.activeTimeline = detail.data;
+                this.$parent.route = 'view';
+            } else {
+                alert(detail.message)
+            }
+
+            this.$parent.isLoading = false;
+        },
         openSetting() {
             this.$parent.route = 'setting';
         }
