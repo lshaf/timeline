@@ -13,7 +13,7 @@
         <div class="input-set">
           <input type="number" class="form-control man-days" :disabled="isFinish(s_key)"
             v-model.number="schedule.manDays">
-          <datepicker :format="customFormat" :disabled-dates="disabledDates" 
+          <datepicker format="yyyy-MM-dd" :disabled-dates="disabledDates" 
             input-class="form-control start-date" :disabled="isFinish(s_key)"
             v-model="schedule.startDate"></datepicker>
           <input type="text" class="form-control end-date" :value="calculateEnd(s_key)" disabled>

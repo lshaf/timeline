@@ -14,7 +14,7 @@
       <tbody v-if="timeline.schedules.length > 0">
         <tr v-for="(schedule, s_key) in timeline.schedules" :key="s_key">
           <td class="pre-box">{{ schedule.description }}</td>
-          <td class="text-center">{{ schedule.startDate }}</td>
+          <td class="text-center">{{ dateFormatter(schedule.startDate) }}</td>
           <td class="text-center">{{ calculateEnd(s_key) }}</td>
           <td class="text-center">{{ schedule.finishDate == "" ? "-" : schedule.finishDate }}</td>
           <td class="text-center">
