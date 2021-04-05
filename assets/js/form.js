@@ -104,7 +104,7 @@ Vue.component('p-form', {
             let totalSch = this.timeline.schedules.length;
             let currentED = this.calculateEnd(scheduleKey);
             for (lp = (scheduleKey+1);lp < totalSch;lp++) {
-                this.timeline.schedules[lp].startDate = this.manDaysCalculator(2, currentED);
+                this.timeline.schedules[lp].startDate = new Date(this.manDaysCalculator(2, currentED));
                 currentED = this.calculateEnd(lp);
             }
         },

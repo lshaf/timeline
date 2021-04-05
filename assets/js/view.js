@@ -5,12 +5,15 @@ Vue.component("p-view", {
         return {
             setting: this.$parent.setting,
         }
-    }, 
+    },
     methods: {
         dateFormatter(tmpDate) {
             let padMonth = `${tmpDate.getMonth() + 1}`.padStart(2, 0);
             let padDate = `${tmpDate.getDate()}`.padStart(2, 0);
             return `${tmpDate.getFullYear()}-${padMonth}-${padDate}`;
+        },
+        formatDateByValue(data) {
+            return this.dateFormatter(new Date(data));
         },
         manDaysCalculator(masterManDays, startDate) {
             let manDays = masterManDays - 1;
