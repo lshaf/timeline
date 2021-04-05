@@ -75,8 +75,7 @@ Vue.component('p-form', {
             return `${tmpDate.getFullYear()}-${padMonth}-${padDate}`;
         },
         customFormat(date) {
-            let tmpDate = new Date(date);
-            return this.dateFormatter(tmpDate);
+            return this.dateFormatter(new Date(date));
         },
         manDaysCalculator(masterManDays, startDate) {
             let manDays = masterManDays - 1;
@@ -127,9 +126,8 @@ Vue.component('p-form', {
             this.$parent.route = 'list';
         },
         async save() {
-            let dataTimeline = this.timeline;
             this.$parent.isLoading = true;
-            let resp = await Request("save/timeline", dataTimeline);
+            let resp = await Request("save/timeline", this.timeline);
             if (resp.success) {
                 alert(resp.message)
             } else {
@@ -137,7 +135,7 @@ Vue.component('p-form', {
             }
 
             this.$parent.isLoading = false;
-            this.$parent.activeTimeline = dataTimeline;
+            this.$parent.activeTimeline = resp.data;
         }
     }
 })

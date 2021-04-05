@@ -81,7 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         file_put_contents($tl_list, json_encode($cacheList));
         $result = [
             'success' => true,
-            'message' => 'Success'
+            'message' => 'Success',
+            'data' => $dt
         ];
     } else if ($path == 'get/timeline') {
         $fn = $db_path . "/{$dt['id']}.json";
@@ -90,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $result = [
                 'success' => true,
-                'message' => 'success',
+                'message' => 'Success',
                 'data' => json_decode(file_get_contents($fn), true)
             ];
         }
@@ -106,14 +107,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents($tl_list, json_encode($cacheList));
             $result = [
                 'success' => true,
-                'message' => 'success',
+                'message' => 'Success',
                 'data' => []
             ];
         }
     } else if ($path == 'get/timeline/list') {
         $result = [
             'success' => true,
-            'message' => 'success',
+            'message' => 'Success',
             'data' => json_decode(file_get_contents($tl_list), true)
         ];
     } else if ($path == 'get/setting') {
@@ -125,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
         $result = [
             'success' => true,
-            'message' => 'success',
+            'message' => 'Success',
             'data' => $data
         ];
     } else if ($path == 'save/setting') {
@@ -138,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         file_put_contents($setting_file, json_encode($finalResult));
         $result = [
             'success' => true,
-            'message' => 'success',
+            'message' => 'Success',
             'data' => $finalResult
         ];
     }
