@@ -21,6 +21,9 @@ Vue.component('p-list', {
             this.$parent.isLoading = false;
         },
         async deleteTimeline(id) {
+            let sure = confirm("Are you sure want to delete timeline?");
+            if (!sure) return false;
+
             this.$parent.isLoading = true;
             let detail = await Request("delete/timeline", {id: id});
             if (detail.success) {
