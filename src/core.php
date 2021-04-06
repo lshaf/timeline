@@ -22,7 +22,7 @@ function pc_validate($user, $pass) {
     if ($is_valid) {
         if (!isset($_SESSION['timeout'])) {
             log_it("LOGIN", "Login user {$user}");
-            $_SESSION['timeout'] = $currentTime + 1800;
+            $_SESSION['timeout'] = $currentTime + (6 * 3600);
         }
             
         $is_valid = $currentTime <= $_SESSION['timeout'];
