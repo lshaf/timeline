@@ -101,9 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result['message'] = "ID is not valid.";
         } else {
             $cacheList = json_decode(file_get_contents($tl_list), true);
+            $timelineName = $cacheList[$dt['id']];
             unset($cacheList[$dt['id']]);
             unlink($fn);
 
+            log_it("TIMELINE", "Delete timeline {$dt['id']} {$timelineName}");
             file_put_contents($tl_list, json_encode($cacheList));
             $result = [
                 'success' => true,
