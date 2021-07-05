@@ -2,28 +2,32 @@ Vue.component("p-view", {
     template: "#page-view",
     props: ["timeline"],
     data() {
+        var defaultFilter = 'pending';
         var all_schedule = JSON.parse(JSON.stringify(this.timeline.schedules));
         return {
             setting: this.$parent.setting,
-            filter: 'pending',
-            list_schedules: all_schedule,
+            filter: defaultFilter,
+            list_schedules: this.doFilter(all_schedule, defaultFilter),
             all_schedule: all_schedule
         }
     },
     watch: {
         filter: function(newFilter, oldFilter) {
-            this.list_schedules = this.all_schedule.filter(function (schedule) {
-                if (newFilter == 'pending') {
+            this.list_schedules = this.doFilter(this.all_schedule, newFilter);
+        }
+    },
+    methods: {
+        doFilter(data, filter) {
+            return data.filter(function (schedule) {
+                if (filter == 'pending') {
                     return schedule.finishDate == "";
-                } else if (newFilter == 'done') {
+                } else if (filter == 'done') {
                     return schedule.finishDate != "";
                 } else {
                     return true;
                 }
             })
-        }
-    },
-    methods: {
+        },
         dateFormatter(tmpDate) {
             let padMonth = `${tmpDate.getMonth() + 1}`.padStart(2, 0);
             let padDate = `${tmpDate.getDate()}`.padStart(2, 0);
@@ -51,16 +55,15 @@ Vue.component("p-view", {
         
             return fmtEd;
         },
-        calculateEnd(scheduleKey) {
-            let schedule = this.timeline.schedules[scheduleKey];
+        calculateEnd(schedule) {
             return this.manDaysCalculator(schedule.manDays, schedule.startDate);
         },
-        isFinish(scheduleKey) {
-            return this.timeline.schedules[scheduleKey].finishDate != "";
+        isFinish(schedule) {
+            return schedule.finishDate != "";
         },
-        async finishSchedule(scheduleKey, isFinish) {
+        async finishSchedule(schedule, isFinish) {
             let finish = (isFinish == 1) ? this.dateFormatter(new Date()) : "";
-            this.timeline.schedules[scheduleKey].finishDate = finish;
+            schedule.finishDate = finish;
 
             this.$parent.isLoading = true;
             await Request("save/timeline", this.timeline);

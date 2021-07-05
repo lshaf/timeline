@@ -29,11 +29,11 @@
     ?>
     <script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
     <script src="https://unpkg.com/vuejs-datepicker"></script>
-    <script src="./assets/js/helper.js"></script>
-    <script src="./assets/js/setting.js"></script>
-    <script src="./assets/js/view.js"></script>
-    <script src="./assets/js/form.js"></script>
-    <script src="./assets/js/list.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/helper.js?1"></script>
+    <script src="./assets/js/setting.js?1"></script>
+    <script src="./assets/js/view.js?1"></script>
+    <script src="./assets/js/form.js?1"></script>
+    <script src="./assets/js/list.js?1"></script>
+    <script src="./assets/js/main.js?1"></script>
 </body>
 </html>
