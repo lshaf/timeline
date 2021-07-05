@@ -1,6 +1,12 @@
 <template id="page-view">
   <div class="list">
     <h2>{{ timeline.name }}</h2>
+    <select v-model="filter" class="status-filter">
+      <option value="all">Semua</option>
+      <option value="done">Selesai</option>
+      <option value="pending">Dalam Pengerjaan</option>
+    </select>
+    </select>
     <table>
       <thead>
         <tr>
@@ -11,8 +17,8 @@
           <th width="120px">Action</th>
         </tr>
       </thead>
-      <tbody v-if="timeline.schedules.length > 0">
-        <tr v-for="(schedule, s_key) in timeline.schedules" :key="s_key">
+      <tbody v-if="list_schedules.length > 0">
+        <tr v-for="(schedule, s_key) in list_schedules" :key="s_key">
           <td class="pre-box">{{ schedule.description }}</td>
           <td class="text-center">{{ formatDateByValue(schedule.startDate) }}</td>
           <td class="text-center">{{ calculateEnd(s_key) }}</td>
@@ -27,7 +33,7 @@
       </tbody>
       <tbody v-else>
         <tr>
-          <td colspan="2" class="text-center">No data available</td>
+          <td colspan="5" class="text-center">No data available</td>
         </tr>
       </tbody>
     </table>

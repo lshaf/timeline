@@ -2,8 +2,25 @@ Vue.component("p-view", {
     template: "#page-view",
     props: ["timeline"],
     data() {
+        var all_schedule = JSON.parse(JSON.stringify(this.timeline.schedules));
         return {
             setting: this.$parent.setting,
+            filter: 'pending',
+            list_schedules: all_schedule,
+            all_schedule: all_schedule
+        }
+    },
+    watch: {
+        filter: function(newFilter, oldFilter) {
+            this.list_schedules = this.all_schedule.filter(function (schedule) {
+                if (newFilter == 'pending') {
+                    return schedule.finishDate == "";
+                } else if (newFilter == 'done') {
+                    return schedule.finishDate != "";
+                } else {
+                    return true;
+                }
+            })
         }
     },
     methods: {

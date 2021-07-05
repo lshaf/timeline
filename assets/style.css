@@ -120,6 +120,15 @@ body {
     animation: dot-two 5s infinite;
 }
 
+#app .list {
+    position: relative;
+}
+#app .list .status-filter {
+    top: 0;
+    position: absolute;
+    right: 0;
+    padding: 3px 10px;
+}
 #app .list table {
     width: 100%;
     border-collapse: collapse;
