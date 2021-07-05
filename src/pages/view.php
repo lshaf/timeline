@@ -2,9 +2,9 @@
   <div class="list">
     <h2>{{ timeline.name }}</h2>
     <select v-model="filter" class="status-filter">
-      <option value="all">Semua</option>
-      <option value="done">Selesai</option>
-      <option value="pending">Dalam Pengerjaan</option>
+      <option value="all">All</option>
+      <option value="done">Finished</option>
+      <option value="pending">Pending</option>
     </select>
     </select>
     <table>
