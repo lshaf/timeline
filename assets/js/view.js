@@ -61,9 +61,10 @@ Vue.component("p-view", {
         isFinish(schedule) {
             return schedule.finishDate != "";
         },
-        async finishSchedule(schedule, isFinish) {
+        async finishSchedule(s_key, isFinish) {
             let finish = (isFinish == 1) ? this.dateFormatter(new Date()) : "";
-            schedule.finishDate = finish;
+            this.timeline.schedules[s_key].finishDate = finish;
+            this.all_schedule[s_key].finishDate = finish;
 
             this.$parent.isLoading = true;
             await Request("save/timeline", this.timeline);

@@ -25,9 +25,9 @@
           <td class="text-center">{{ schedule.finishDate == "" ? "-" : schedule.finishDate }}</td>
           <td class="text-center">
             <button type="button" class="btn btn-success" 
-              @click="finishSchedule(schedule, 1)" v-if="!isFinish(schedule)">Finish</button>
+              @click="finishSchedule(s_key, 1)" v-if="!isFinish(schedule)">Finish</button>
             <button type="button" class="btn btn-warning" 
-              @click="finishSchedule(schedule, 0)" v-if="isFinish(schedule)">Undo</button>
+              @click="finishSchedule(s_key, 0)" v-if="isFinish(schedule)">Undo</button>
           </td>
         </tr>
       </tbody>
