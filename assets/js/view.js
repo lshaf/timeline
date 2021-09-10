@@ -4,6 +4,10 @@ Vue.component("p-view", {
     data() {
         var defaultFilter = 'pending';
         var all_schedule = JSON.parse(JSON.stringify(this.timeline.schedules));
+        for ([idx, schedule] of all_schedule.entries()) {
+            all_schedule[idx] = Object.assign(schedule, {"id": idx});
+        }
+
         return {
             setting: this.$parent.setting,
             filter: defaultFilter,

@@ -18,16 +18,16 @@
         </tr>
       </thead>
       <tbody v-if="list_schedules.length > 0">
-        <tr v-for="(schedule, s_key) in list_schedules" :key="s_key">
+        <tr v-for="schedule in list_schedules" :key="schedule.id">
           <td class="pre-box">{{ schedule.description }}</td>
           <td class="text-center">{{ formatDateByValue(schedule.startDate) }}</td>
           <td class="text-center">{{ calculateEnd(schedule) }}</td>
           <td class="text-center">{{ schedule.finishDate == "" ? "-" : schedule.finishDate }}</td>
           <td class="text-center">
             <button type="button" class="btn btn-success" 
-              @click="finishSchedule(s_key, 1)" v-if="!isFinish(schedule)">Finish</button>
+              @click="finishSchedule(schedule.id, 1)" v-if="!isFinish(schedule)">Finish</button>
             <button type="button" class="btn btn-warning" 
-              @click="finishSchedule(s_key, 0)" v-if="isFinish(schedule)">Undo</button>
+              @click="finishSchedule(schedule.id, 0)" v-if="isFinish(schedule)">Undo</button>
           </td>
         </tr>
       </tbody>
