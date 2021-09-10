@@ -31,7 +31,7 @@
     <script src="https://unpkg.com/vuejs-datepicker"></script>
     <script src="./assets/js/helper.js?1"></script>
     <script src="./assets/js/setting.js?1"></script>
-    <script src="./assets/js/view.js?1"></script>
+    <script src="./assets/js/view.js?1.1"></script>
     <script src="./assets/js/form.js?1"></script>
     <script src="./assets/js/list.js?1"></script>
     <script src="./assets/js/main.js?1"></script>
